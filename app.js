@@ -47,7 +47,7 @@ $('signupForm').onsubmit=async e=>{
 $('forgotForm').onsubmit=async e=>{
   e.preventDefault();message('forgotMessage','');const btn=$('forgotForm').querySelector('button');btn.disabled=true;
   try{
-    await api('/auth/v1/recover',{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim(),redirect_to:returnUrl()})});
+    await api('/auth/v1/recover?redirect_to='+encodeURIComponent(returnUrl()),{method:'POST',body:JSON.stringify({email:$('forgotEmail').value.trim()})});
     message('forgotMessage','Se existir uma conta associada a este email, receberás uma ligação para recuperar a palavra-passe. Verifica também o spam.');
   }catch(err){message('forgotMessage',err.message);}finally{btn.disabled=false;}
 };
